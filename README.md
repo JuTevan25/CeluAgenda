@@ -37,8 +37,8 @@ Incluye funcionalidades para agregar, listar, buscar por nombre y persistir los 
 Opción 1: Con Visual Studio
 
 1. Clona el repositorio
-- git clone https://github.com/JuTevan25/DirectorioContactos.git
-- cd DirectorioContactos
+- git clone https://github.com/JuTevan25/CeluAgenda.git
+- cd CeluAgenda
 - dotnet run
 
 2. Crea un nuevo proyecto de Aplicación de consola (.NET).
