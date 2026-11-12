@@ -16,42 +16,33 @@ Incluye funcionalidades para agregar, listar, buscar por nombre y persistir los 
 - ✅ Persistencia automática en archivo JSON (`directorio.json`).
 - ✅ Menú interactivo con manejo de errores.
 - ✅ Colores en consola para mejorar la experiencia visual.
+- ✅ Eliminar un contacto   
 
 🛠️ Tecnologías:
 
 - Lenguaje: C#
-- Plataforma: .NET 6.0 o superior (compatible con .NET 8, 9, 10)
-- Compilador:`dotnet`, Visual Studio, VS Code con extensión C#
+- Plataforma: .NET 10.0 o superior 
+- Compilador:`dotnet`, VS Code con extensión C#
 
 📦 Requisitos previos
 
-- [.NET SDK](https://dotnet.microsoft.com/download) (6.0 o superior)
-- [Visual Studio Community](https://visualstudio.microsoft.com/) o [Visual Studio Code](https://code.visualstudio.com/) con extensión C#
+- [.NET SDK](https://dotnet.microsoft.com/download) (10.0 o superior)
+- [Visual Studio Code](https://code.visualstudio.com/) con extensión C#
 
-⁉️ ¿Cómo encontrar la carpeta donde se aloja el código?
-- En carpeta llamada "Lista_Contactos" deslizas hacia abajo.
-- El archivo llamado "Program.cs" das doble click y aparece el código.
 
 ▶️ Cómo ejecutar:
 
-Opción 1: Con Visual Studio
-
-1. Clona el repositorio
-- git clone https://github.com/JuTevan25/CeluAgenda.git
-- cd CeluAgenda
-- dotnet run
-
-2. Crea un nuevo proyecto de Aplicación de consola (.NET).
-3. Insertar el código en `Program.cs`.
-4. Presiona `F5` o haz clic en Iniciar.
-
-Opción 2: Con terminal y ejecutar 'dotnet'
-
-```bash
-Clona el repositorio (o descarga el archivo .cs):
+Con Visual Studio Code / terminal:
+``` bash
 git clone https://github.com/JuTevan25/CeluAgenda.git
 cd CeluAgenda
 dotnet run
+```
 
-Github: https://github.com/JuTevan25
-Autor: Juan Esteban Venegas Torres
+- GitHub: https://github.com/JuTevan25
+- Autor: Juan Esteban Venegas Torres
+
+## Estructura
+
+- Program.cs: Menú e interacción con el usuario.
+- Contacto.cs: Lógica para mostrar el contacto agregado.
