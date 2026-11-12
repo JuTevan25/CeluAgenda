@@ -23,7 +23,7 @@ Incluye funcionalidades para agregar, listar, buscar por nombre y persistir los 
 - Plataforma: .NET 6.0 o superior (compatible con .NET 8, 9, 10)
 - Compilador:`dotnet`, Visual Studio, VS Code con extensión C#
 
-## 📦 Requisitos previos
+📦 Requisitos previos
 
 - [.NET SDK](https://dotnet.microsoft.com/download) (6.0 o superior)
 - [Visual Studio Community](https://visualstudio.microsoft.com/) o [Visual Studio Code](https://code.visualstudio.com/) con extensión C#
