@@ -1,10 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-
-namespace Lista_Contactos
+﻿namespace Lista_Contactos
 {
     class Program
     {
@@ -13,64 +7,50 @@ namespace Lista_Contactos
             List<Contacto> contactos = new List<Contacto>();
             int opcion = 0;
 
-
-            if (File.Exists("directorio.json"))
-            {
-                string json = File.ReadAllText("directorio.json");
-                Contacto[] guardados = JsonSerializer.Deserialize<Contacto[]>(json);
-                if (guardados != null)
-                {
-                    contactos.AddRange(guardados);
-                }
-
-            }
-
             Console.WriteLine("Bienvenido al directorio de contactos");
             Console.WriteLine("A continuación observe el menú de opciones: ");
             Console.WriteLine("");
             do
             {
                 Console.WriteLine("==== MENÚ DE OPCIONES ====");
-                Console.WriteLine("1.Añadir contacto");
-                Console.WriteLine("2.Ver contactos");
-                Console.WriteLine("3.Buscar por nombre");
+                Console.WriteLine("1. Añadir contacto");
+                Console.WriteLine("2. Ver contactos");
+                Console.WriteLine("3. Buscar por nombre");
                 Console.WriteLine("4. Eliminar contacto");
-                Console.WriteLine("5.Salir");
-                Console.WriteLine("");
-                Console.Write("Opción:");
+                Console.WriteLine("5. Salir");
+                Console.WriteLine("===========================");
 
-                try
-                {
-                    opcion = Convert.ToInt32(Console.ReadLine());
-                    Console.Clear();
-                }
-                catch (FormatException)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("La opción ingresada no es válida. Por favor, ingresa un número del 1 al 4.");
-                    Console.ResetColor();
-                    Console.WriteLine("");
-                }
                 Console.WriteLine("");
+                Console.Write("Opción: ");
+
+        while (!int.TryParse(Console.ReadLine(), out opcion) || opcion < 1 || opcion > 5)
+       {
+           Console.ForegroundColor = ConsoleColor.Red;
+           Console.WriteLine("Error: Por favor ingresa una opción dentro del rango 1 a 5.");
+           Console.WriteLine("");
+           Console.Write(">>: ");
+           Console.ResetColor();
+       }
+     Console.Clear();
 
                 switch (opcion)
                 {
                     case 1:
                         long telefono = 0;
                         string nombre = "", email = "";
-                        bool verificarTelefono = true;
 
                         Console.WriteLine("===== AÑADIR CONTACTO =====");
                         Console.WriteLine("Por favor, ingresa el nombre del contacto: ");
-
-                        nombre = Console.ReadLine();
+                        Console.Write(">>: ");
+                        nombre = Console.ReadLine() ?? "";
 
                         while (string.IsNullOrWhiteSpace(nombre) || !nombre.All(c => char.IsLetter(c) || c == ' '))
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Error: Ingrese un nombre válido (solo letras y espacios, no vacío).");
+                            Console.Write(">>: ");
                             Console.ResetColor();
-                            nombre = Console.ReadLine();
+                            nombre = Console.ReadLine() ?? "";
                             Console.ResetColor();
                         }
 
@@ -80,6 +60,7 @@ namespace Lista_Contactos
 
                         while (true)
                         {
+                            Console.Write(">>: ");
                             if (!long.TryParse(Console.ReadLine(), out telefono) || telefono <= 0)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
@@ -90,7 +71,7 @@ namespace Lista_Contactos
                             }
 
 
-                            if (contactos.Exists(c => c.telefono == telefono))
+                            if (contactos.Exists(c => c.Telefono == telefono))
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("El número de teléfono ya existe. Ingrese un número diferente: ");
@@ -107,23 +88,23 @@ namespace Lista_Contactos
 
                         Console.WriteLine("===== CORREO ELECTRÓNICO =====");
                         Console.WriteLine("Por favor, ingresa el correo electrónico del contacto: ");
-
-                        email = Console.ReadLine();
+                        Console.Write(">>: ");
+                        email = Console.ReadLine() ?? "";
 
 
                         while (string.IsNullOrEmpty(email) || !email.Contains("@"))
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("El correo electrónico no es válido.");
-                            email = Console.ReadLine();
+                            Console.Write(">>: ");
+                            email = Console.ReadLine() ?? "";
                             Console.ResetColor();
                             Console.WriteLine("");
                         }
 
                         contactos.Add(new Contacto(nombre, telefono, email));
 
-                        string json = JsonSerializer.Serialize(contactos);
-                        File.WriteAllText("directorio.json", json);
+                        
 
                         Console.WriteLine("");
                         Console.Clear();
@@ -134,21 +115,17 @@ namespace Lista_Contactos
 
                         break;
 
-                    case 2:
-
-
-                        Console.WriteLine("======================");
+                    case 2:    
                         Console.WriteLine("LISTA DE CONTACTOS");
+                        Console.WriteLine("======================");
                         if (contactos.Count > 0)
                         {
                             foreach (Contacto c in contactos)
                             {
                                 c.MostrarContacto();
                                 Console.WriteLine("");
-                                Console.WriteLine("=========================");
-                                Console.WriteLine("");
-                                Console.Clear();
                             }
+                           Console.WriteLine("====================="); 
                         }
                         else
                         {
@@ -163,9 +140,9 @@ namespace Lista_Contactos
 
                     case 3:
                         Console.WriteLine("Búsqueda por nombre: ");
-                        string nombreBusqueda = Console.ReadLine();
+                        string nombreBusqueda = Console.ReadLine() ?? "";
 
-                        var contactoEncontrado = contactos.Find(c => c.nombre.Equals(nombreBusqueda, StringComparison.OrdinalIgnoreCase));
+                        var contactoEncontrado = contactos.Find(c => c.Nombre.Equals(nombreBusqueda, StringComparison.OrdinalIgnoreCase));
 
                         if (contactoEncontrado != null)
                         {
@@ -188,21 +165,21 @@ namespace Lista_Contactos
                         {
                             Console.WriteLine("===== ELIMINAR CONTACTO =====");
                             Console.WriteLine("Escribe el nombre del contacto a eliminar.");
-                            nombre = Console.ReadLine();
+                            nombre = Console.ReadLine() ?? "";
 
                             while (string.IsNullOrWhiteSpace(nombre) || !nombre.All(c => char.IsLetter(c) || c == ' '))
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("Error: Ingrese un nombre válido (solo letras y espacios, no vacío).");
                                 Console.ResetColor();
-                                nombre = Console.ReadLine();
+                                nombre = Console.ReadLine() ?? "";
                                 Console.ResetColor();
                             }
 
-                            if (contactos.Exists(n => n.nombre == nombre))
+                            if (contactos.Exists(n => n.Nombre == nombre))
                             {
                                 Console.ForegroundColor = ConsoleColor.Green;
-                                contactos.RemoveAll(c => string.Equals(c.nombre?.Trim(), nombre.Trim(), StringComparison.OrdinalIgnoreCase));
+                                contactos.RemoveAll(c => string.Equals(c.Nombre?.Trim(), nombre.Trim(), StringComparison.OrdinalIgnoreCase));
                                 Console.WriteLine("Contacto eliminado correctamente.");
                                 Console.ResetColor();
                             }
@@ -225,16 +202,11 @@ namespace Lista_Contactos
 
             } while (opcion != 5);
 
-
             Console.Clear();
             Console.WriteLine("");
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Muchas gracias por usar el directorio telefónico.");
             Console.WriteLine("Hasta la próxima.");
         }
-
-
     }
-
-
 }
