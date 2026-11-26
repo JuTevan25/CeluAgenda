@@ -57,7 +57,6 @@
                         Console.WriteLine("");
                         Console.WriteLine("===== NÚMERO DE TELÉFONO =====");
                         Console.WriteLine("Por favor, ingresa el número de teléfono del contacto: ");
-
                         while (true)
                         {
                             Console.Write(">>: ");
@@ -70,7 +69,14 @@
 
                             }
 
-
+                            if (telefono.ToString().Length != 10)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("El número de teléfono debe tener exactamente 10 dígitos. Ingrese un número válido: ");
+                                Console.ResetColor();
+                                continue;
+                            }
+                            
                             if (contactos.Exists(c => c.Telefono == telefono))
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
@@ -94,12 +100,12 @@
 
                         while (string.IsNullOrEmpty(email) || !email.Contains("@"))
                         {
+                            Console.WriteLine("");
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("El correo electrónico no es válido.");
                             Console.Write(">>: ");
                             email = Console.ReadLine() ?? "";
                             Console.ResetColor();
-                            Console.WriteLine("");
                         }
 
                         contactos.Add(new Contacto(nombre, telefono, email));
